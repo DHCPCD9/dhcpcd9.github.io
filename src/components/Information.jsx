@@ -1,11 +1,55 @@
 
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Modal, Button, Accordion, ListGroup} from "react-bootstrap"
 
 export default () => {
 
     const [show, setShow] = useState(false);
-    const priceUah = 50;
+    const [isLoading, setLoading] = useState(true);
+    const basePrice = 125;
+    const [price, setPrice] = useState([]);
+
+    const codes = {
+        840: "USD",
+        978: "EUR",
+        985: "PLN"
+    };
+
+    useEffect(() => {
+       updatePrices(); 
+    }, []);
+
+    const updatePrices = async () => {
+        if (localStorage.getItem("currentCache")) {
+            const cachedResponse = JSON.parse(localStorage.getItem("currentCache"));
+
+            if ((Date.now() - cachedResponse.cachedAt) / 1024 > 1800) {
+                localStorage.removeItem('currentCache');
+                return updatePrices();
+            }
+
+            const prices = [{currency: "UAH", price: basePrice}];
+
+            for(const code of Object.entries(codes)) {
+                const exchangeRate = cachedResponse.response.find(c => c.currencyCodeA == code.at(0) && c.currencyCodeB == 980);
+
+                prices.push({
+                    currency: code.at(1),
+                    price: exchangeRate.rateBuy ? Math.round(basePrice / exchangeRate.rateBuy) : Math.round(basePrice / exchangeRate.rateCross)
+                })
+            }
+
+            setPrice(prices);
+            setLoading(false);
+            return
+        }
+        const response = await fetch("https://api.monobank.ua/bank/currency");  
+
+        if (!response.ok) return;
+        localStorage.setItem("currentCache", JSON.stringify({response: await response.json(), cachedAt: Date.now()}))
+    }
+
+    
     
 
     const redirect = (url) => window.location.href = url;
@@ -17,8 +61,8 @@ export default () => {
             <div className="title" style={{color: "white", fontSize: "64px", textAlign: "center", fontFamily: "'Comfortaa', cursive"}}>
                 Перший сервер
             </div>
-            <div className="info" style={{color: 'white', fontSize: "24px", fontFamily: "'Comfortaa', cursive"}}>
-            Якась довга інформація. Якась довга інформація. Якась довга інформація. Якась довга інформація. Якась довга інформація. Якась довга інформація. Якась довга інформація. Якась довга інформація. 
+            <div className="info" style={{color: 'white', fontSize: "24px", fontFamily: "'Comfortaa', cursive", textAlign: "center"}}>
+                Перший український сервер зі своїми унікальними механіками.
             </div>
 
             <div className="grid grid-cols-2 gap-2 place-content-center my-4">
@@ -39,6 +83,7 @@ export default () => {
                             Якщо ви хочете отримати доступ бесплатно, ви можете це зробити якщо:
                             <ListGroup>
                                 <ListGroup.Item>Ви контент мейкер (Tiktok/Youtube/Twitch)</ListGroup.Item>
+                                <ListGroup.Item>Отримати за бали канала партнера.</ListGroup.Item>
                                 <ListGroup.Item>Ви мій знайомий.</ListGroup.Item>
                             </ListGroup>
 
@@ -46,10 +91,11 @@ export default () => {
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="1">
-                        <Accordion.Header>Якщо ви хочете отримати доступ бесплатно.</Accordion.Header>
+                        <Accordion.Header>Якщо ви хочете отримати доступ платно.</Accordion.Header>
                         <Accordion.Body>
                             Якщо же ви не підходите по критеріям вище - ви завжди можете купити проходку.
-                            Ціна на проходку на данний момент - {priceUah}UAH
+                            Ціна на проходку на данний момент: {isLoading ? `Зачекайте трохи` : <div style={{display: "flex"}}> {price.map((price, index) => <div key={index}>{price.price} <b>{price.currency}</b> |</div>)}</div>}
+                            <div style={{fontSize: "12px"}}>Ціни приблизні</div>
                             Ви можете перейти на <a style={{textDecoration: "none"}} href="https://donate.dhcpcd.xyz">цю сторінку</a> і написати в коментарі Ваш нікнейм в грі та діскорд.<br />
                             Перед цим зайдіть на діскорд-сервер будь-ласка.
                         </Accordion.Body>
