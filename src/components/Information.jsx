@@ -87,16 +87,16 @@ export default () => {
                                 <ListGroup.Item>Ви мій знайомий.</ListGroup.Item>
                             </ListGroup>
 
-                            Якщо же ви підходите по критеріям - <a style={{textDecoration: "none"}} href="https://cm.dhcpcd.xyz"> заповніть цю форму</a>
+                            Якщо же ви підходите по критеріям - <a style={{textDecoration: "none"}} href="https://cm.dhcpcd.xyz"> заповніть анкету</a>
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="1">
                         <Accordion.Header>Якщо ви хочете отримати доступ платно.</Accordion.Header>
                         <Accordion.Body>
                             Якщо же ви не підходите по критеріям вище - ви завжди можете купити проходку.
-                            Ціна на проходку на данний момент: {isLoading ? `Зачекайте трохи` : <div style={{display: "flex"}}> {price.map((price, index) => <div key={index}>{price.price} <b>{price.currency}</b> |</div>)}</div>}
+                            Ціна на проходку на данний момент: {isLoading ? `Зачекайте трохи` : <div style={{display: "flex"}}> {price.map((price, index) => <div key={index}>{price.price} <b>{price.currency}</b> / </div>)}</div>}
                             <div style={{fontSize: "12px"}}>Ціни приблизні</div>
-                            Ви можете перейти на <a style={{textDecoration: "none"}} href="https://donate.dhcpcd.xyz">цю сторінку</a> і написати в коментарі Ваш нікнейм в грі та діскорд.<br />
+                            Ви можете перейти на <a style={{textDecoration: "none"}} href="https://donate.dhcpcd.xyz">сюди</a> і написати в коментарі Ваш нікнейм в грі та діскорд.<br />
                             Перед цим зайдіть на діскорд-сервер будь-ласка.
                         </Accordion.Body>
                     </Accordion.Item>
