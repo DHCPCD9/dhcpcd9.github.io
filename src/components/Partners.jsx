@@ -55,7 +55,7 @@ export default function Partners() {
             return 4;
         return partners.length;
     }
-    return (<div>
+    return (<div style={{marginTop: "32px"}}>
         <div style={{textAlign: "center", fontSize: "28px", color: "white",  fontFamily: "'Comfortaa', cursive" }}>Наші партнери</div>
 
         <div className={`grid grid-cols-${getSize()} gap-${getSize()} place-items-center mt-6`}>
