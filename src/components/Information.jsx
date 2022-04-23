@@ -1,8 +1,8 @@
 
-import React, {useEffect, useRef, useState} from "react";
-import {Modal, Button, Accordion, ListGroup} from "react-bootstrap"
+import React, {useEffect, useState} from "react";
+import {Modal, Accordion, ListGroup} from "react-bootstrap"
 
-export default () => {
+export default function Information() {
 
     const [show, setShow] = useState(false);
     const [isLoading, setLoading] = useState(true);
@@ -16,8 +16,8 @@ export default () => {
     };
 
     useEffect(() => {
-       updatePrices(); 
-    }, []);
+       updatePrices().then(r => {});
+    });
 
     const updatePrices = async () => {
         if (localStorage.getItem("currentCache")) {
@@ -30,9 +30,11 @@ export default () => {
 
             const prices = [{currency: "UAH", price: basePrice}];
 
-            for(const code of Object.entries(codes)) {
-                const exchangeRate = cachedResponse.response.find(c => c.currencyCodeA == code.at(0) && c.currencyCodeB == 980);
+            for(const code of Object.entries(codes)){
+                const exchangeRate = cachedResponse.response.find(c => c.currencyCodeA === parseInt(code.at(0)) && c.currencyCodeB === 980);
 
+                if (!exchangeRate)
+                    continue;
                 prices.push({
                     currency: code.at(1),
                     price: exchangeRate.rateBuy ? Math.round(basePrice / exchangeRate.rateBuy) : Math.round(basePrice / exchangeRate.rateCross)
@@ -43,7 +45,7 @@ export default () => {
             setLoading(false);
             return
         }
-        const response = await fetch("https://api.monobank.ua/bank/currency");  
+        const response = await fetch("https://api.monobank.ua/bank/currency");
 
         if (!response.ok) return;
         localStorage.setItem("currentCache", JSON.stringify({response: await response.json(), cachedAt: Date.now()}))
@@ -53,22 +55,23 @@ export default () => {
     
 
     const redirect = (url) => window.location.href = url;
-    return (<div style={{width: "100%", overflow: "hidden", backgroundColor: "#171717"}} className={"grid grid-cols-2 gap-2 place-content-center"}>
+    return (<div style={{width: "100%", overflow: "hidden", backgroundColor: "#171717", alignItems: "center"}} className={"grid grid-cols-2 gap-2 place-content-center rounded overflow-hidden shadow-lg p-1"}>
         <div className="w-full">
-            <img src="https://www.freeiconspng.com/thumbs/cat-png/cat-png-17.png" alt="cat" />
+            <img src="/girl.png" alt={"girl"} width={512} height={512}/>
         </div>
-        <div className="w-full">
-            <div className="title" style={{color: "white", fontSize: "64px", textAlign: "center", fontFamily: "'Comfortaa', cursive"}}>
-                Перший сервер
-            </div>
-            <div className="info" style={{color: 'white', fontSize: "24px", fontFamily: "'Comfortaa', cursive", textAlign: "center"}}>
-                Перший український сервер зі своїми унікальними механіками.
-            </div>
+        <div className="w-full align-middle">
+                <div className="title" style={{color: "white", fontSize: "64px", textAlign: "center", fontFamily: "'Comfortaa', cursive"}}>
+                    Lisek world
+                </div>
+                <div className="info" style={{color: 'white', fontSize: "24px", fontFamily: "'Comfortaa', cursive", textAlign: "center"}}>
+                    Перший український сервер зі своїми унікальними механіками.
+                </div>
 
-            <div className="grid grid-cols-2 gap-2 place-content-center my-4">
-                <button style={{width: "auto", height: "50px", color: "white", backgroundColor: "#5865F2", fontSize: "24px", border: "0px transparent", borderRadius: '16px'}} onClick={() => redirect("https://discord.dhcpcd.xyz")}>Discord</button>
-                <button style={{width: "auto", height: "50px", color: "white", backgroundColor: "#ED4245", fontSize: "24px", border: "0px transparent", borderRadius: '16px'}} onClick={() => setShow(true)}>Отримати доступ</button>
-            </div>
+                <div className="grid grid-cols-2 gap-2 place-content-center my-4">
+                    <button style={{width: "auto", height: "50px", color: "white", backgroundColor: "#5865F2", fontSize: "24px", border: "0px transparent", borderRadius: '16px'}} onClick={() => redirect("https://discord.dhcpcd.xyz")}>Discord</button>
+                    <button style={{width: "auto", height: "50px", color: "white", backgroundColor: "#ED4245", fontSize: "24px", border: "0px transparent", borderRadius: '16px'}} onClick={() => setShow(true)}>Отримати доступ</button>
+                </div>
+
         </div>
 
         <Modal show={show} onHide={() => setShow(false)} variant="dark">
@@ -84,7 +87,7 @@ export default () => {
                             <ListGroup>
                                 <ListGroup.Item>Ви контент мейкер (Tiktok/Youtube/Twitch)</ListGroup.Item>
                                 <ListGroup.Item>Отримати за бали канала партнера.</ListGroup.Item>
-                                <ListGroup.Item>Ви мій знайомий.</ListGroup.Item>
+                                <ListGroup.Item>Купити за віртуальні гривні на нашому сервері.</ListGroup.Item>
                             </ListGroup>
 
                             Якщо же ви підходите по критеріям - <a style={{textDecoration: "none"}} href="https://cm.dhcpcd.xyz"> заповніть анкету</a>
@@ -97,7 +100,7 @@ export default () => {
                             Ціна на проходку на данний момент: {isLoading ? `Зачекайте трохи` : <div style={{display: "flex"}}> {price.map((price, index) => <div key={index}>{price.price} <b>{price.currency}</b> / </div>)}</div>}
                             <div style={{fontSize: "12px"}}>Ціни приблизні</div>
                             Ви можете перейти на <a style={{textDecoration: "none"}} href="https://donate.dhcpcd.xyz">сюди</a> і написати в коментарі Ваш нікнейм в грі та діскорд.<br />
-                            Перед цим зайдіть на діскорд-сервер будь-ласка.
+                            Перед цим зайдіть на діскорд-сервер будь-ласка та зареєструйтесь на сервер по IP: <b>play.dhcpcd.xyz</b>.
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>

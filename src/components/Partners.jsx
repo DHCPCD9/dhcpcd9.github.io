@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 
 
-export default () => {
+export default function Partners() {
 
-    const [mQuery, setMQuery] = useState({
+    const [, setMQuery] = useState({
         matches: window.innerWidth > 768,
     });
     useEffect(() => {
