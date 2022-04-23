@@ -6,7 +6,7 @@ export default () => {
 
     const [show, setShow] = useState(false);
     const [isLoading, setLoading] = useState(true);
-    const basePrice = 125;
+    const basePrice = 80;
     const [price, setPrice] = useState([]);
 
     const codes = {
