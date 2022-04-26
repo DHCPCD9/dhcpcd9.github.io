@@ -48,13 +48,3 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v3.1.1
-      - name: setup
-        run: npm install
-      - name: deploy
-        run: npm run deploy
