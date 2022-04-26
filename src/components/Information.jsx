@@ -2,12 +2,14 @@
 import React, {useEffect, useState} from "react";
 import {Modal, Accordion, ListGroup} from "react-bootstrap"
 
+
+
 export default function Information() {
 
     const [show, setShow] = useState(false);
     const [isLoading, setLoading] = useState(true);
     const basePrice = 80;
-    const [price, setPrice] = useState([]);
+    const [prices, setPrice] = useState([]);
 
     const codes = {
         840: "USD",
@@ -55,11 +57,10 @@ export default function Information() {
     
 
     const redirect = (url) => window.location.href = url;
-    return (<div style={{width: "100%", overflow: "hidden", backgroundColor: "#171717", alignItems: "center"}} className={"grid grid-cols-2 gap-2 place-content-center rounded overflow-hidden shadow-lg p-1"}>
-        <div className="w-full">
-            <img src="/girl.png" alt={"girl"} width={512} height={512}/>
-        </div>
-        <div className="w-full align-middle">
+    return (
+    <div className={"infoc rounded overflow-hidden p-1"}>
+            <img src="girl.png" className="girl" alt={"girl"} width={350} />
+        <div className="align-middle" style={{maxWidth: "90%"}}>
                 <div className="title" style={{color: "white", fontSize: "64px", textAlign: "center", fontFamily: "'Comfortaa', cursive"}}>
                     Lisek world
                 </div>
@@ -67,9 +68,9 @@ export default function Information() {
                     Перший український сервер зі своїми унікальними механіками.
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 place-content-center my-4">
-                    <button style={{width: "auto", height: "50px", color: "white", backgroundColor: "#5865F2", fontSize: "24px", border: "0px transparent", borderRadius: '16px'}} onClick={() => redirect("https://discord.dhcpcd.xyz")}>Discord</button>
-                    <button style={{width: "auto", height: "50px", color: "white", backgroundColor: "#ED4245", fontSize: "24px", border: "0px transparent", borderRadius: '16px'}} onClick={() => setShow(true)}>Отримати доступ</button>
+                <div className="grid btns gap-2 place-content-center" style={{margin: "15px", display: "flex", justifyContent: "center"}}>
+                    <button type="button" className="btn btn-primary btn-lg" style={{width: "200px"}} onClick={() => redirect("https://discord.dhcpcd.xyz")}>Discord</button>
+                    <button type="button" className="btn btn-danger btn-lg"  style={{width: "200px"}} onClick={() => setShow(true)}>Отримати доступ</button>
                 </div>
 
         </div>
@@ -81,32 +82,39 @@ export default function Information() {
             <Modal.Body>
                 <Accordion>
                     <Accordion.Item eventKey="0">
-                        <Accordion.Header>Якщо ви хочете отримати доступ бесплатно.</Accordion.Header>
+                        <Accordion.Header>Отримати доступ безкоштовно.</Accordion.Header>
                         <Accordion.Body>
-                            Якщо ви хочете отримати доступ бесплатно, ви можете це зробити якщо:
-                            <ListGroup>
-                                <ListGroup.Item>Ви контент мейкер (Tiktok/Youtube/Twitch)</ListGroup.Item>
-                                <ListGroup.Item>Отримати за бали канала партнера.</ListGroup.Item>
-                                <ListGroup.Item>Купити за віртуальні гривні на нашому сервері.</ListGroup.Item>
-                            </ListGroup>
+                            Ви можете отримати безкоштовний доступ до серверу якщо:
+                           <ListGroup>
+                                <ListGroup.Item>Ви контент-мейкер (Tiktok/Youtube/Twitch)</ListGroup.Item>
+                                <ListGroup.Item>Маєте бали канала партнера.</ListGroup.Item>
+                                <ListGroup.Item>Маєте за віртуальні гривні на нашому Discord сервері.</ListGroup.Item>
+                            </ListGroup> 
 
-                            Якщо же ви підходите по критеріям - <a style={{textDecoration: "none"}} href="https://cm.dhcpcd.xyz"> заповніть анкету</a>
+                            Якщо ви підходите по критеріям - <a style={{textDecoration: "none"}} target="_blank" rel="noreferrer" href="https://cm.dhcpcd.xyz"> заповніть анкету</a>
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="1">
-                        <Accordion.Header>Якщо ви хочете отримати доступ платно.</Accordion.Header>
+                        <Accordion.Header>Отримати доступ платно.</Accordion.Header>
                         <Accordion.Body>
-                            Якщо же ви не підходите по критеріям вище - ви завжди можете купити проходку.
-                            Ціна на проходку на данний момент: {isLoading ? `Зачекайте трохи` : <div style={{display: "flex"}}> {price.map((price, index) => <div key={index}>{price.price} <b>{price.currency}</b> / </div>)}</div>}
-                            <div style={{fontSize: "12px"}}>Ціни приблизні</div>
-                            Ви можете перейти на <a style={{textDecoration: "none"}} href="https://donate.dhcpcd.xyz">сюди</a> і написати в коментарі Ваш нікнейм в грі та діскорд.<br />
-                            Перед цим зайдіть на діскорд-сервер будь-ласка та зареєструйтесь на сервер по IP: <b>play.dhcpcd.xyz</b>.
+                            Якщо ви не підходите по критеріям вище - ви завжди можете купити прохід.
+                            <br/><br/>
+                            Ціна на даний момент: {isLoading ? `Зачекайте трохи` : <div style={{display: "flex"}}> {prices.map((price, index) => <div key={index}>{price.price} <b>{price.currency}</b>{prices.length   !== index+1?<span class="sl">/</span>:<span/>}</div>)}</div>}
+                            <div style={{fontSize: "12px", color: "rgb(147 147 147)"}}>Ціни приблизні.</div>
+                            <br/>
+                            <h5><b>Для цього потрібно:</b></h5>
+                            <ListGroup>
+                                <ListGroup.Item>1. Зайти на <a style={{textDecoration: "none"}} target="_blank" rel="noreferrer" href="https://discord.dhcpcd.xyz">наш Discord сервер</a></ListGroup.Item>
+                                <ListGroup.Item>2. Зареєструватись на Minecraft сервері (IP: <b>play.dhcpcd.xyz</b>)</ListGroup.Item>
+                                <ListGroup.Item>3. Перейти  на <a style={{textDecoration: "none"}} target="_blank" rel="noreferrer" href="https://donate.dhcpcd.xyz">строінку оплати</a></ListGroup.Item>
+                                <ListGroup.Item>4. В коментарі вказати свій нік у грі та діскорд</ListGroup.Item>
+                            </ListGroup> 
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
             </Modal.Body>
-            <Modal.Footer>
-            </Modal.Footer>
+            {/* <Modal.Footer>
+            </Modal.Footer> */}
         </Modal>
     </div>)
 }

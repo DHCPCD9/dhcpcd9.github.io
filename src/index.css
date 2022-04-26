@@ -21,3 +21,88 @@ body {
   background-color: #171717;
   overflow-x: hidden;
 }
+
+.modal-body {
+  min-width: 500px;
+}
+.fade.modal.show {
+  display: flex!important;
+  justify-content: center;
+  align-items: center;
+}
+.infoc{
+  width: 100%;
+  overflow: hidden;
+  background-color: #171717;
+  align-items: center;
+  width: 70%;
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
+}
+.intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+}
+.w-full {
+  width: 100vw;
+}
+
+.btn-group-lg>.btn, .btn-lg {
+  border-radius: .5rem!important;
+}
+
+.sl {
+  margin: 0 5px 0 5px;
+}
+.grid-cols-2 {
+  grid-template-columns: repeat(2,minmax(0,1fr));
+}
+
+@media screen and (max-width: 1140px) {
+    .infoc {
+      width: 90%;
+    }
+
+}
+@media screen and (max-width: 880px) { 
+    .infoc {
+      flex-direction: column;
+      width: 100%;
+      box-shadow: none!important;
+    }
+    .title {
+      font-size: 45px!important;
+    }
+    .btns {
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+    }
+    .btns>button {
+      width: 100%!important;
+    }
+    .info {
+      font-size: 20px;
+    }
+    div.partc {
+      margin-right: 20px;
+      margin-left: 20px;
+      gap: 2rem!important;
+      margin-bottom: 3rem;
+    }
+    button.partc {
+      margin: 10px 0 10px 0!important;
+    }
+    .modal-body {
+      min-width: calc(100vw - 1rem)!important;
+    }
+    .girl {
+       width: unset!important;
+       max-height: 40vh;
+    }
+
+}

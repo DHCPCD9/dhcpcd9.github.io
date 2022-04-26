@@ -1,0 +1,16 @@
+.infoc{
+    width: 100%;
+    overflow: hidden;
+    background-color: #171717;
+    align-items: center;
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+}
+.intro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}

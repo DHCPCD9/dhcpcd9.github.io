@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 
 
+
+
 export default function Partners() {
 
     const [, setMQuery] = useState({
@@ -55,20 +57,20 @@ export default function Partners() {
             return 4;
         return partners.length;
     }
-    return (<div style={{marginTop: "32px"}}>
+    return (<div style={{marginTop: "32px", display: "block"}}>
         <div style={{textAlign: "center", fontSize: "28px", color: "white",  fontFamily: "'Comfortaa', cursive" }}>Наші партнери</div>
 
-        <div className={`grid grid-cols-${getSize()} gap-${getSize()} place-items-center mt-6`}>
-            {partners.map(partner => <div className={"max-w-sm rounded overflow-hidden shadow-lg"}>
+        <div className={`grid grid-cols-${getSize()} gap-${getSize()} place-items-center  partc mt-6`}>
+            {partners.map(partner => <div className={"max-w-sm rounded shadow-lg overflow-hidden"}>
                 <img className="w-full rounded-t-xl" src={partner.image} alt="Avatar" width={512} height={512} />
                 <div className="px-6 py4">
-                    <div className="font-bold text-xl mb-2 text-white text-center ">
+                    <div className="font-bold text-xl mt-2 text-white text-center ">
                         {partner.name}
                     </div>
                 </div>
                 <div className={"grid grid-cols-1"}>
                     {Object.entries(partner.urls).map(c =>
-                        <button style={{width: "auto", height: "50px", color: buttonColors[c.at(0)].text, backgroundColor: buttonColors[c.at(0)].bg, fontSize: "24px", border: "0px transparent", borderRadius: '16px'}} className={"m-2"} onClick={() => window.open(c.at(1))}>{buttonColors[c.at(0)].label}</button>
+                        <button type="button" className="btn btn-primary partc btn-lg"  style={{ color: buttonColors[c.at(0)].text, backgroundColor: buttonColors[c.at(0)].bg, borderColor: buttonColors[c.at(0)].bg, margin: "10px"}} onClick={() => window.open(c.at(1))}>{buttonColors[c.at(0)].label}</button>
                     )}
                 </div>
             </div>)}
