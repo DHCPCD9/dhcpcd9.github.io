@@ -1411,6 +1411,11 @@
   dependencies:
     "@babel/runtime" "^7.6.2"
 
+"@react-buddy/ide-toolbox@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@react-buddy/ide-toolbox/-/ide-toolbox-2.1.2.tgz#bbbc67f855ff407a7e11c2304504b97e23062a21"
+  integrity sha512-EAEUpUKuQCsLKiH/B6YeARXuc3/d6FASQF0nRhxjms9ParEe6r72NkavLyIoDFMSw/d20LmdD/p0TahA4YkpNg==
+
 "@restart/hooks@^0.4.0", "@restart/hooks@^0.4.6":
   version "0.4.6"
   resolved "https://registry.yarnpkg.com/@restart/hooks/-/hooks-0.4.6.tgz#15dcf34631a618c513efc924705c7cbe349a4a0c"

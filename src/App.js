@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Information from "./components/Information"
 import Partners from './components/Partners';
+import Footer from "./components/Footer";
 
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
           <div className="intro">
                 <Partners />
           </div>
+            <Footer />
+
 
         </div>
 
