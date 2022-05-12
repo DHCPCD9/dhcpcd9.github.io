@@ -16,6 +16,7 @@ export default function () {
         </div>
 
         <div className={"text-gray-400  text-sm text-center mb-5"}>Сайт був написаний Єгором (DHCPCD) та Олегом (ItsOlegDm)</div>
+        <div className={"text-gray-400 text-sm text-center mb-5"}>Ми ніяк не пов'язані з Lisek Vtuber.<br />Якщо у вас виникли питання - пишіть на почту lisekworld@gmail.com або в діскорд</div>
 
 
         <Info show={show} onHide={() => setShow(false)} variant="dark" />
