@@ -1,11 +1,14 @@
 import {Accordion, ListGroup, Modal} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 
 export default function (props) {
     const basePrice = 80;
     const [prices, setPrice] = useState([]);
     const [isLoading, setLoading] = useState(true);
+
+    const { t } = useTranslation();
 
     const codes = {
         840: "USD",
@@ -51,37 +54,36 @@ export default function (props) {
 
     return (<Modal {...props}>
         <Modal.Header closeButton>
-            <Modal.Title>Як отримати доступ?</Modal.Title>
+            <Modal.Title>{t("modal.info.title")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <Accordion>
                 <Accordion.Item eventKey="0">
-                    <Accordion.Header>Отримати доступ безкоштовно.</Accordion.Header>
+                    <Accordion.Header>{t("modal.info.freeAccess")}</Accordion.Header>
                     <Accordion.Body>
-                        Ви можете отримати безкоштовний доступ до серверу якщо:
+                        {t("modal.info.freeAccess.text")}
                         <ListGroup>
-                            <ListGroup.Item>Ви контент-мейкер (Tiktok/Youtube/Twitch)</ListGroup.Item>
-                            <ListGroup.Item>Маєте бали канала партнера.</ListGroup.Item>
-                            <ListGroup.Item>Маєте за віртуальні гривні на нашому Discord сервері.</ListGroup.Item>
+                            <ListGroup.Item>{t("modal.info.freeAccess.text.cm")}</ListGroup.Item>
+                            <ListGroup.Item>{t("modal.info.freeAccess.text.partner_points")}</ListGroup.Item>
                         </ListGroup>
 
-                        Якщо ви підходите по критеріям - <a style={{textDecoration: "none"}} target="_blank" rel="noreferrer" href="https://cm.dhcpcd.xyz"> заповніть анкету</a>
+                        {t("modal.info.freeAccess.text.ok")} <a style={{textDecoration: "none"}} target="_blank" rel="noreferrer" href="https://cm.dhcpcd.xyz"> {t("modal.info.freeAccess.text.ok.fill_form")}</a>
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
-                    <Accordion.Header>Отримати доступ платно.</Accordion.Header>
+                    <Accordion.Header>{t("modal.info.paid.for.access")}</Accordion.Header>
                     <Accordion.Body>
-                        Якщо ви не підходите по критеріям вище - ви завжди можете купити прохід.
+                        {t("modal.info.paid.for.access.text")}
                         <br/><br/>
-                        Ціна на даний момент: {isLoading ? `Зачекайте трохи` : <div style={{display: "flex"}}> {prices.map((price, index) => <div key={index}>{price.price} <b>{price.currency}</b>{prices.length   !== index+1?<span class="sl">/</span>:<span/>}</div>)}</div>}
-                        <div style={{fontSize: "12px", color: "rgb(147 147 147)"}}>Ціни приблизні.</div>
+                        {t("modal.info.paid.price.list")}: {isLoading ? t("modal.info.paid.loading") : <div style={{display: "flex"}}> {prices.map((price, index) => <div key={index}>{price.price} <b>{price.currency}</b>{prices.length   !== index+1?<span class="sl">/</span>:<span/>}</div>)}</div>}
+                        <div style={{fontSize: "12px", color: "rgb(147 147 147)"}}>{t("modal.info.paid.prices.approximate")}</div>
                         <br/>
-                        <h5><b>Для цього потрібно:</b></h5>
+                        <h5><b>{t("modal.info.paid.price.list.requirements")}</b></h5>
                         <ListGroup>
-                            <ListGroup.Item>1. Зайти на <a style={{textDecoration: "none"}} target="_blank" rel="noreferrer" href="https://discord.dhcpcd.xyz">наш Discord сервер</a></ListGroup.Item>
-                            <ListGroup.Item>2. Зареєструватись на Minecraft сервері (IP: <b>play.dhcpcd.xyz</b>)</ListGroup.Item>
-                            <ListGroup.Item>3. Перейти  на <a style={{textDecoration: "none"}} target="_blank" rel="noreferrer" href="https://donate.dhcpcd.xyz">строінку оплати</a></ListGroup.Item>
-                            <ListGroup.Item>4. В коментарі вказати свій нік у грі та діскорд</ListGroup.Item>
+                            <ListGroup.Item>1. {t("modal.info.paid.price.list.join.to")}<a style={{textDecoration: "none"}} target="_blank" rel="noreferrer" href="https://discord.dhcpcd.xyz">{t("modal.info.paid.price.list.join.to.discord")}</a></ListGroup.Item>
+                            <ListGroup.Item>2. {t("modal.info.paid.price.list.register")} (IP: <b>play.dhcpcd.xyz</b>)</ListGroup.Item>
+                            <ListGroup.Item>3. {t("modal.info.paid.price.list.goto")} <a style={{textDecoration: "none"}} target="_blank" rel="noreferrer" href="https://donate.dhcpcd.xyz">{t("modal.info.paid.price.list.donate.page")}</a></ListGroup.Item>
+                            <ListGroup.Item>4. {t("modal.info.paid.price.list.comment")}</ListGroup.Item>
                         </ListGroup>
                     </Accordion.Body>
                 </Accordion.Item>

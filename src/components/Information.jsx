@@ -1,15 +1,14 @@
 
-import React, {useEffect, useState} from "react";
-import {Modal, Accordion, ListGroup} from "react-bootstrap"
+import React, {useState} from "react";
 import Info from "./Modals/Info";
-
+import { useTranslation } from "react-i18next";
 
 
 export default function Information() {
 
     const [show, setShow] = useState(false);
 
-
+    const { t } = useTranslation();
     
     
 
@@ -22,12 +21,12 @@ export default function Information() {
                     Lisek world
                 </div>
                 <div className="info" style={{color: 'white', fontSize: "24px", fontFamily: "'Comfortaa', cursive", textAlign: "center"}}>
-                    Перший український сервер зі своїми унікальними механіками.
+                    {t("info.info")}
                 </div>
 
                 <div className="grid btns gap-2 place-content-center" style={{margin: "15px", display: "flex", justifyContent: "center"}}>
                     <button type="button" className="btn btn-primary btn-lg" style={{width: "200px"}} onClick={() => redirect("https://discord.dhcpcd.xyz")}>Discord</button>
-                    <button type="button" className="btn btn-danger btn-lg"  style={{width: "200px"}} onClick={() => setShow(true)}>Отримати доступ</button>
+                    <button type="button" className="btn btn-danger btn-lg"  style={{width: "200px"}} onClick={() => setShow(true)}>{t("info.getAccess")}</button>
                 </div>
 
         </div>

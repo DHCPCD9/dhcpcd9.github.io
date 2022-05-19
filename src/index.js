@@ -4,7 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {DevSupport} from "@react-buddy/ide-toolbox";
-import {ComponentPreviews, useInitial} from "./dev";
+import {ComponentPreviews, useInitial} from "./dev"
+
+import "./i18n/config";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

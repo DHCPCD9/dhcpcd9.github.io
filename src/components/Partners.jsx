@@ -1,9 +1,12 @@
 import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 
 
 
 export default function Partners() {
+
+    const { t } = useTranslation();
 
     const [, setMQuery] = useState({
         matches: window.innerWidth > 768,
@@ -34,15 +37,8 @@ export default function Partners() {
     }
     
     const partners = [{
-        name: "Король рептилій",
-        image: "https://media.discordapp.net/attachments/939944897681719307/966991391764910100/512x512.png",
-        urls: {
-            twitch: "https://twitch.tv/king_of_reptiels"
-        }   
-    },
-        {
             name: "DHCPCD",
-            image: "https://cdn.discordapp.com/avatars/420663223344168976/1b97b0686222c3dff1ab5107e293af5e.png?size=512",
+            image: "/images/partners/dhcpcd.png",
             urls: {
                 twitch: "https://twitch.tv/dhcpcd"
             }
@@ -58,7 +54,7 @@ export default function Partners() {
         return partners.length;
     }
     return (<div style={{marginTop: "32px", display: "block"}}>
-        <div style={{textAlign: "center", fontSize: "28px", color: "white",  fontFamily: "'Comfortaa', cursive" }}>Наші партнери</div>
+        <div style={{textAlign: "center", fontSize: "28px", color: "white",  fontFamily: "'Comfortaa', cursive" }}>{t("partners.ourParners")}</div>
 
         <div className={`grid grid-cols-${getSize()} gap-${getSize()} place-items-center  partc mt-6`}>
             {partners.map(partner => <div className={"max-w-sm rounded shadow-lg overflow-hidden"}>
